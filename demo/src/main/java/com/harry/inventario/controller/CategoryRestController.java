@@ -45,4 +45,16 @@ public class CategoryRestController {
         ResponseEntity<CategoryResposeRest> response = iCategoryService.save(category);
         return response;
     }
+
+    /**
+     * update categories by id
+     * @param category
+     * @param id
+     * @return
+     */
+    @PutMapping("/categories/{id}")
+    public ResponseEntity<CategoryResposeRest> update(@RequestBody Category category, @PathVariable Long id){
+        ResponseEntity<CategoryResposeRest> response = iCategoryService.update(category, id);
+        return response;
+    }
 }
