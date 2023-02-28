@@ -49,4 +49,17 @@ public class ProductRestController {
         ResponseEntity<ProductResposeRest> response = iProductService.save(product, categoryID);
         return response;
     }
+
+    /**
+     * Search by id
+     * @param id
+     * @return
+     */
+    @GetMapping("products/{id}")
+    public ResponseEntity<ProductResposeRest> search(@PathVariable Long id){
+
+        ResponseEntity<ProductResposeRest> response = iProductService.searchById(id);
+
+        return response;
+    }
 }
