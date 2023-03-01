@@ -192,4 +192,55 @@ public class ProductServiceImpl implements IProductService {
         }
         return new ResponseEntity<ProductResposeRest>(response, HttpStatus.OK);
     }
+
+    @Override
+    @Transactional
+    public ResponseEntity<ProductResposeRest> update(Product product, Long idCategoria, Long idProduct) {
+        ProductResposeRest response = new ProductResposeRest();
+        List<Product> list = new ArrayList<>();
+
+        try{
+            //Update product category
+            Optional<Category> categoryOptional = iCategoryDao.findById(idCategoria);
+
+            if(categoryOptional.isPresent()){
+                product.setCategory(categoryOptional.get());
+            }else {
+                response.setMetadata("Respuesta no ok","-1", "Categoria no encontrada");
+                return new ResponseEntity<ProductResposeRest>(response, HttpStatus.NOT_FOUND);
+            }
+
+            //search producto to Update
+            Optional<Product> productOptional = iProductDao.findById(idProduct);
+            if(productOptional.isPresent()){
+
+                productOptional.get().setAccount(product.getAccount());
+                productOptional.get().setCategory(product.getCategory());
+                productOptional.get().setName(product.getName());
+                productOptional.get().setPrice(product.getPrice());
+                productOptional.get().setPicture(product.getPicture());
+
+                //save the product in bata bases
+                Product productToSave = iProductDao.save(productOptional.get());
+
+                if(productToSave != null){
+                    list.add(productToSave);
+                    response.getProductResponse().setProducts(list);
+                    response.setMetadata("Respuesta Ok", "00", "Producto Modificado Exitosamente");
+                }
+
+            }else {
+                response.setMetadata("Respuesta no Ok", "-1", "No modificado en la base de datos");
+                return new ResponseEntity<ProductResposeRest>(response, HttpStatus.BAD_REQUEST);
+            }
+
+
+        }catch (Exception e){
+            response.setMetadata("Respuesta error", "-1", "Error al eliminar producto");
+            e.getStackTrace();
+            return new ResponseEntity<ProductResposeRest>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }
