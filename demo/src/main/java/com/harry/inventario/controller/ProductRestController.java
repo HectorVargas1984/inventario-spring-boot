@@ -55,8 +55,8 @@ public class ProductRestController {
      * @param id
      * @return
      */
-    @GetMapping("products/{id}")
-    public ResponseEntity<ProductResposeRest> search(@PathVariable Long id){
+    @GetMapping("/products/{id}")
+    public ResponseEntity<ProductResposeRest> searchById(@PathVariable Long id){
 
         ResponseEntity<ProductResposeRest> response = iProductService.searchById(id);
 
@@ -68,8 +68,8 @@ public class ProductRestController {
      * @param name
      * @return
      */
-    @GetMapping("products/filter/{name}")
-    public ResponseEntity<ProductResposeRest> search(@PathVariable String name){
+    @GetMapping("/products/filter/{name}")
+    public ResponseEntity<ProductResposeRest> searchbyName(@PathVariable String name){
 
         ResponseEntity<ProductResposeRest> response = iProductService.searchByName(name);
 
@@ -81,10 +81,22 @@ public class ProductRestController {
      * @param id
      * @return
      */
-    @DeleteMapping("products/{id}")
+    @DeleteMapping("/products/{id}")
     public ResponseEntity<ProductResposeRest> deleteById(@PathVariable Long id){
 
         ResponseEntity<ProductResposeRest> response = iProductService.deleteById(id);
+
+        return response;
+    }
+
+    /**
+     * search all
+     * @return
+     */
+    @GetMapping("/products")
+    public ResponseEntity<ProductResposeRest> search(){
+
+        ResponseEntity<ProductResposeRest> response = iProductService.search();
 
         return response;
     }
