@@ -75,4 +75,17 @@ public class ProductRestController {
 
         return response;
     }
+
+    /**
+     * Delete product by id
+     * @param id
+     * @return
+     */
+    @DeleteMapping("products/{id}")
+    public ResponseEntity<ProductResposeRest> deleteById(@PathVariable Long id){
+
+        ResponseEntity<ProductResposeRest> response = iProductService.deleteById(id);
+
+        return response;
+    }
 }
