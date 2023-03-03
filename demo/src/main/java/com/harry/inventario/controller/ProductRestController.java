@@ -38,7 +38,7 @@ public class ProductRestController {
             @RequestParam("name") String name,
             @RequestParam("price") int price,
             @RequestParam("account") int account,
-            @RequestParam("categoryID") Long categoryID
+            @RequestParam("categoryId") Long categoryID
             ) throws IOException {
         Product product = new Product();
         product.setName(name);
@@ -118,7 +118,7 @@ public class ProductRestController {
             @RequestParam("name") String name,
             @RequestParam("price") int price,
             @RequestParam("account") int account,
-            @RequestParam("categoryID") Long categoryID,
+            @RequestParam("categoryId") Long categoryID,
             @PathVariable Long id
     ) throws IOException {
         Product product = new Product();
